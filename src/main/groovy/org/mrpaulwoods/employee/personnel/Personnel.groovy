@@ -22,7 +22,7 @@ class Personnel implements Serializable {
     String lastName
 
     String getFullName() {
-        lastName + ", " + firstName
+        "${lastName}, ${firstName} [$id]"
     }
 
 }
