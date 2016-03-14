@@ -5,16 +5,12 @@
       xmlns="http://www.w3.org/1999/xhtml"
       layout:decorator="employee">
 
-<head>
-    <title>Salary - EmployeeDB</title>
-</head>
-
 <body>
 <div layout:fragment="body">
 
     <h1>
         <span class="glyphicon glyphicon-usd"></span>
-        Salary
+        Payroll
     </h1>
 
     <table class="table table-striped table-bordered table-hover table-condensed">
@@ -23,13 +19,17 @@
             <th>ID</th>
             <th>Employee</th>
             <th>Salary</th>
+            <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="salary : ${salaries}">
-            <td th:text="${salary.id}">id</td>
-            <td th:text="${salary.person.fullName}">john doe</td>
-            <td th:text="${#numbers.formatDecimal(salary.salary, 0, 'COMMA', 2, 'POINT')}">$000,000</td>
+        <tr th:each="payroll : ${salaries}">
+            <td th:text="${payroll.id}">id</td>
+            <td th:text="${payroll.person.fullName}">john doe</td>
+            <td th:text="${#numbers.formatDecimal(payroll.salary, 0, 'COMMA', 2, 'POINT')}">$000,000</td>
+            <td>
+                <a href="#" th:href="@{/payroll/show/{id}(id=${payroll.id})}">show</a>
+            </td>
         </tr>
         </tbody>
     </table>

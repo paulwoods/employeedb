@@ -22,4 +22,11 @@ class Payroll implements Serializable {
     Person person
 
     BigDecimal salary
+
+    static class NotFoundException extends RuntimeException {
+        NotFoundException() {
+            super("The payroll was not found")
+        }
+    }
+
 }

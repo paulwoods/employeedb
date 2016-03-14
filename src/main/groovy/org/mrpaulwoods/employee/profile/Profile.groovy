@@ -30,4 +30,10 @@ class Profile implements Serializable {
 
     String zip
 
+    static class NotFoundException extends RuntimeException {
+        NotFoundException() {
+            super("The payroll was not found")
+        }
+    }
+
 }

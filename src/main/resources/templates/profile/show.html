@@ -1,0 +1,98 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="employee">
+
+<body>
+<div layout:fragment="body">
+
+    <h1>
+        <span class="glyphicon glyphicon-user"></span>
+        Profile
+    </h1>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    Showing: <span th:text="${profile.person.fullName}"></span>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            Profile ID
+                        </div>
+                        <div class="col-sm-9">
+                            <span th:text="${profile.id}">000</span>
+                        </div>
+
+                        <div class="col-sm-3">
+                            Street
+                        </div>
+                        <div class="col-sm-9">
+                            <span th:text="${profile.street}">street</span>
+                        </div>
+
+                        <div class="col-sm-3">
+                            City
+                        </div>
+                        <div class="col-sm-9">
+                            <span th:text="${profile.city}">city</span>
+                        </div>
+
+                        <div class="col-sm-3">
+                            State
+                        </div>
+                        <div class="col-sm-9">
+                            <span th:text="${profile.state}">state</span>
+                        </div>
+
+                        <div class="col-sm-3">
+                            Zip
+                        </div>
+                        <div class="col-sm-9">
+                            <span th:text="${profile.zip}">zip</span>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <br/>
+                            <a href="#" th:href="@{/person/show/{id}(id=${profile.person.id})}" th:text="'Show ' + ${profile.person.firstName}">profile</a>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <a th:if="${profile.person.payroll == null}" href="#" th:href="@{/payroll/create/{id}(id=${profile.person.id})}" th:text="'Create ' + ${profile.person.firstName} + '\'s Payroll'">payrol</a>
+                            <a th:if="${profile.person.payroll != null}" href="#" th:href="@{/payroll/show/{id}(id=${profile.person.payroll.id})}" th:text="'Show ' + ${profile.person.firstName} + '\'s Payroll'">payrol</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a class="btn btn-primary" href="#" th:href="@{/profile/edit/{id}(id=${profile.id})}">Edit</a>
+                        </div>
+
+                        <div class="col-sm-6 text-right">
+                            <a class="btn btn-danger" href="#" th:href="@{/profile/confirm/{id}(id=${profile.id})}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

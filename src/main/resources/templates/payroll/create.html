@@ -1,0 +1,59 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="employee">
+
+<body>
+<div layout:fragment="body">
+
+    <h1>
+        <span class="glyphicon glyphicon-user"></span>
+        Payroll
+    </h1>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <form action="#"
+                  method="post"
+                  th:action="@{/payroll/save}"
+                  th:object="${payrollForm}">
+
+                <input type="hidden" name="personId" th:value="${payrollForm.personId}"/>
+
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading">
+                        Create a Payroll
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group" th:class="${#fields.hasErrors('salary')}? has-error">
+                            <label class="control-label" for="salary">Salary *</label>
+                            <input type="text" class="form-control" th:field="*{salary}"/>
+                            <div th:errors="*{salary}" class="help-block">Error</div>
+                        </div>
+
+                    </div>
+
+                    <div class="panel-footer">
+
+                        <button class="btn btn-success" type="submit">Save</button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>

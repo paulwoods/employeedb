@@ -1,0 +1,82 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="employee">
+
+<body>
+<div layout:fragment="body">
+
+    <h1>
+        <span class="glyphicon glyphicon-user"></span>
+        Profile
+    </h1>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <form action="#"
+                  method="post"
+                  th:action="@{/profile/update/{id}(id=${profileForm.id})}"
+                  th:object="${profileForm}">
+
+                <input type="hidden" name="personId" th:value="${profile.person.id}"/>
+
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading">
+                        Edit: <span th:text="${profile.person.fullName}">full name</span>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group" th:class="${#fields.hasErrors('street')}? has-error">
+                            <label class="control-label" for="street">Street *</label>
+                            <input type="text" class="form-control" th:field="*{street}"/>
+                            <div th:errors="*{street}" class="help-block">Error</div>
+                        </div>
+
+                        <div class="form-group" th:class="${#fields.hasErrors('city')}? has-error">
+                            <label class="control-label" for="city">City *</label>
+                            <input type="text" class="form-control" th:field="*{city}"/>
+                            <div th:errors="*{city}" class="help-block">Error</div>
+                        </div>
+
+                        <div class="form-group" th:class="${#fields.hasErrors('state')}? has-error">
+                            <label class="control-label" for="state">State *</label>
+                            <input type="text" class="form-control" th:field="*{state}"/>
+                            <div th:errors="*{state}" class="help-block">Error</div>
+                        </div>
+
+                        <div class="form-group" th:class="${#fields.hasErrors('zip')}? has-error">
+                            <label class="control-label" for="zip">Zip *</label>
+                            <input type="text" class="form-control" th:field="*{zip}"/>
+                            <div th:errors="*{zip}" class="help-block">Error</div>
+                        </div>
+
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <button class="btn btn-success" type="submit">Update</button>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <a class="btn btn-primary" href="#" th:href="@{/profile/show/{id}(id=${profile.id})}">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+
+</html>

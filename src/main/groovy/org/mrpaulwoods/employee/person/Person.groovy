@@ -24,10 +24,10 @@ class Person implements Serializable {
 
     String lastName
 
-    @OneToOne(mappedBy="person", cascade=CascadeType.PERSIST, orphanRemoval=true)
+    @OneToOne(mappedBy="person", cascade=CascadeType.ALL)
     Profile profile
 
-    @OneToOne(mappedBy="person", cascade=CascadeType.PERSIST, orphanRemoval=true)
+    @OneToOne(mappedBy="person", cascade=CascadeType.ALL)
     Payroll payroll
 
     String getFullName() {

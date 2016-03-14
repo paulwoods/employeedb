@@ -5,10 +5,6 @@
       xmlns="http://www.w3.org/1999/xhtml"
       layout:decorator="employee">
 
-<head>
-    <title>Profiles - EmployeeDB</title>
-</head>
-
 <body>
 <div layout:fragment="body">
 
@@ -26,6 +22,7 @@
             <th>City</th>
             <th>State</th>
             <th>Zip</th>
+            <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
@@ -36,6 +33,9 @@
             <td th:text="${profile.city}">city</td>
             <td th:text="${profile.state}">state</td>
             <td th:text="${profile.zip}">zip</td>
+            <td>
+                <a href="#" th:href="@{/profile/show/{id}(id=${profile.id})}">show</a>
+            </td>
         </tr>
         </tbody>
     </table>
