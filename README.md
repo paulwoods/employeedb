@@ -4,20 +4,26 @@ sample application for teaching spring security
 outline
 -------
 
-* start with unsecure app
-* add spring security starter
-  * default user
-  * password in log
-  * properties file to change user and hardcode password
-* add & explain
+* Start with unsecure application
+* Add spring security starter
+  * Default user name
+  * Password in log
+  * Properties to change user and hardcode password
+* Add & Explain
   * User (UserDetails)
   * Role (Enum)
   * Authority (GrantedAuthority)
   * UserDetailsService
   * SecurityConfig (WebSecurityConfigurerAdapter)
-* encrypt password
-* @PreAuthorize
-*
-*
-* JWT
+* Encrypting password in database
+  * Authorization  
+* Logging in:
+  * Basic Digest Login
+  * Form Login
 * 
+* External Authentication (SSO)
+* 
+* @PreAuthorize
+* 
+* JWT
+*
