@@ -6,6 +6,9 @@ outline
 
 * start with unsecure app
 * add spring security starter
+  * default user
+  * password in log
+  * properties file to change user and hardcode password
 * add & explain
   * User (UserDetails)
   * Role (Enum)
@@ -14,3 +17,7 @@ outline
   * SecurityConfig (WebSecurityConfigurerAdapter)
 * encrypt password
 * @PreAuthorize
+*
+*
+* JWT
+* 
