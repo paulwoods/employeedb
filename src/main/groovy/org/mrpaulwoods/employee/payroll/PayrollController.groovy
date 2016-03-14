@@ -1,4 +1,4 @@
-package org.mrpaulwoods.employee.personnel
+package org.mrpaulwoods.employee.payroll
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -11,20 +11,19 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET
  * Created on 3/7/2016.
  */
 @Controller
-@RequestMapping(value = "/personnel")
-class PersonnelController {
+@RequestMapping(value = "/payroll")
+class PayrollController {
 
-    private final PersonnelRepository personnelRepository
+    private final PayrollRepository PayrollRepository
 
     @Autowired
-    PersonnelController(PersonnelRepository personnelRepository) {
-        this.personnelRepository = personnelRepository
+    PayrollController(PayrollRepository PayrollRepository) {
+        this.PayrollRepository = PayrollRepository
     }
 
     @RequestMapping(method=GET)
     String index(final Model model) {
-        model.addAttribute "people", personnelRepository.findAll()
-        "personnel/index"
+        model.addAttribute "salaries", PayrollRepository.findAll()
+        "payroll/index"
     }
-
 }

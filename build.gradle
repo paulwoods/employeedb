@@ -38,6 +38,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.codehaus.groovy:groovy')
+	compile('org.codehaus.groovy:groovy-json')
 	runtime('com.h2database:h2')
 	compile('org.springframework.boot:spring-boot-starter-tomcat')
 //	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')

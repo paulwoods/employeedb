@@ -1,11 +1,12 @@
 package org.mrpaulwoods.employee.profile
 
-import org.mrpaulwoods.employee.personnel.Personnel
+import org.mrpaulwoods.employee.person.Person
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.JoinColumn
+import javax.persistence.MapsId
 import javax.persistence.OneToOne
 
 /**
@@ -19,12 +20,14 @@ class Profile implements Serializable {
     Long id
 
     @OneToOne
-    @JoinColumn(name="person_id")
-    Personnel person
+    Person person
 
     String street
+
     String city
+
     String state
+
     String zip
 
 }

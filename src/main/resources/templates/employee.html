@@ -16,7 +16,7 @@
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -36,10 +36,10 @@
                         <span class="glyphicon glyphicon-home"></span>
                         Home</a>
                 </li>
-                <li th:class="${#httpServletRequest.requestURI.contains('employeedb/personnel')} ? 'active' : ''">
-                    <a href="#" th:href="@{/personnel}">
+                <li th:class="${#httpServletRequest.requestURI.contains('employeedb/person')} ? 'active' : ''">
+                    <a href="#" th:href="@{/person}">
                         <span class="glyphicon glyphicon-user"></span>
-                        Personnel
+                        People
                     </a>
                 </li>
                 <li th:class="${#httpServletRequest.requestURI.contains('employeedb/profile')} ? 'active' : ''">
@@ -48,10 +48,10 @@
                         Profiles
                     </a>
                 </li>
-                <li th:class="${#httpServletRequest.requestURI.contains('employeedb/salary')} ? 'active' : ''">
-                    <a href="#" th:href="@{/salary}">
+                <li th:class="${#httpServletRequest.requestURI.contains('employeedb/payroll')} ? 'active' : ''">
+                    <a href="#" th:href="@{/payroll}">
                         <span class="glyphicon glyphicon-usd"></span>
-                        Salary
+                        Payroll
                     </a>
                 </li>
             </ul>
@@ -59,7 +59,7 @@
     </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container">
     <div layout:fragment="body"></div>
 </div>
 
