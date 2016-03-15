@@ -20,7 +20,10 @@ war {
 	baseName = 'employee'
 	version = '0.0.1-SNAPSHOT'
 }
+//noinspection GroovyUnusedAssignment
 sourceCompatibility = 1.8
+
+//noinspection GroovyUnusedAssignment
 targetCompatibility = 1.8
 
 repositories {
@@ -36,7 +39,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.codehaus.groovy:groovy')
 	compile('org.codehaus.groovy:groovy-json')
 	runtime('com.h2database:h2')
