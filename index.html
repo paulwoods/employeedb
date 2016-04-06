@@ -471,7 +471,7 @@ void init() {
 	
 				<section>
 					<h2>Encrypting Passwords</h2>
-					<ol>
+					<ol start="3">
 						<li>Update SecurityConfig to use BCrypt as the password encoder.
 <code><pre>
     @Override
@@ -510,7 +510,7 @@ void init() {
 <pre><u>src\main\groovy\org\mrpaulwoods\employee\home\HomeController.groovy</u><code>					
     @RequestMapping(method=GET)
     String index(Principal principal) {
-        println "principal = $principal.name"
+        println "principal = $principal?.name"
         "home/index"
     }
 </code></pre>
@@ -528,7 +528,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 @Slf4j @Service @Transactional class HomeService {
     void example() {
         def principal = SecurityContextHolder.context?.authentication
-        log.info "user = $principal.name"
+        log.info "user = $principal?.name"
     }
 }
 					</code></pre>
@@ -549,10 +549,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 
 				</section>
 
-			</section>
-
-			<section>
-				<h2>Logging</h2>
 			</section>
 
 			<section>
@@ -577,15 +573,577 @@ SecurityContextHolder.context.authentication = authentication
 			</section>
 
 			<section>
-				<h2>Authorization</h2>
+
+				<section>
+					<h2>Authorization</h2>
+					<p>Authorization determines what the user can an cannot access. We set this up by
+					giving each user a 1-or-more roles that they can do, then we configure the 
+					URLs and/or controllers to allow access based on the roles.
+					</p>
+				</section>
+
+				<section>
+					<h2>Authorization</h2>
+					<p>We've specified the URL based authorization in the SecurityConfig</p>
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\SecurityConfig.groovy</u><code>
+.antMatchers("/webjars/**").permitAll()
+.antMatchers("/css/**").permitAll()
+.antMatchers("/js/**").permitAll()
+.antMatchers("/images/**").permitAll()
+.antMatchers("/login/**").permitAll()
+
+.anyRequest().authenticated()
+				</code></pre>
+
+				<ul>
+					<li>The 5 urls are authorized for anyone to use.</li>
+					<li>Any other requests require an authenticated user.</li>
+				</ul>
+
+				</section>
+
+
+				<section>
+					<h2>Authorization</h2>
+					<p>We can also specify class and method level authorizations</p>
+					<ul>
+						<li>Use the @Secured annotation</li>
+<pre><code>@Secured("ROLE_TELLER")
+</code></pre>
+						<li>@PreAuthorize with a SPEL expression</li>
+<pre><code>@PreAuthorize("hasAuthority('ROLE_TELLER')")
+</code></pre>
+					</ul>
+
+					<p>Remember, to add @EnableGlobalMethodSecurity(securedEnabled = true) to your SecurityConfig class</p>
+				</section>
+
+				<section>
+					<h2>Following Along?</h2>
+
+					<ul>
+						<li>Check out the tag encrypted-password.</li>
+					</ul>
+
+				</section>
+
+				<section>
+					<h2>We will only allow users with role ROLE_HR to view the payroll data.</h2>
+
+					<ul>
+						<li>Edit SecurityConfig.groovy.</li>
+						<li>Add the annotation @EnableGlobalMethodSecurity(securedEnabled = true) to the class.</li>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\payroll\PayrollController.groovy</u><code>...
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
+...
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
+class SecurityConfig extends WebSecurityConfigurerAdapter {
+...
+</code></pre>
+					</ul>
+				</section>
+
+				<section>
+
+					<ul>
+						<li>Edit PayrollController.groovy.</li>
+						<li>Add @PreAuthorize('hasRole("ROLE_HR")') to the class</li>
+					</ul>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\payroll\PayrollController.groovy</u><code>...
+import org.springframework.security.access.prepost.PreAuthorize
+...
+@Controller
+@RequestMapping(value = "/payroll")
+@Slf4j
+@PreAuthorize('hasRole("ROLE_HR")')
+class PayrollController {
+...
+</code></pre>
+				<ul>
+					<li>Now, users with the role ROLE_HR will see the page. Other users will get a 
+					403 forbidden error message.
+					</li>
+				</ul>
+
+				</section>
+
 			</section>
 
 			<section>
-				<h2>Securing Restfull Endpoints</h2>
+				
+				<section>
+					<h2>Securing Restfull Endpoints</h2>
+
+					We'll start with a un-secured api endpoint.
+We'll use JWT (<a href="https://jwt.io/">https://jwt.io/</a>) to create auth tokens on the server. 
+We'll create a login api endpoint, which will take the user/pass and return the token. 
+The client will send the token in the header of each subsequent call.
+
+				</section>
+
+
+
+
+				<section>
+					<h2>Following Along?</h2>
+
+					<ul>
+						<li>Check out the tag authorization.</li>
+					</ul>
+
+				</section>
+
+				<section>
+					<h2>Allow anyone to access the api</h2>
+
+					<ul>
+						<li>Edit the SecurityConfig.groovy file.</li>
+						<li>Add .antMatchers("/api/**").permitAll()</li>
+					</ul>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\security\SecurityConfig.groovy</u><code>...
+protected void configure(HttpSecurity http) {
+    http
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/webjars/**").permitAll()
+            .antMatchers("/css/**").permitAll()
+            .antMatchers("/js/**").permitAll()
+            .antMatchers("/images/**").permitAll()
+            .antMatchers("/login/**").permitAll()
+            .antMatchers("/api/**").permitAll()
+
+            .anyRequest().authenticated()
+            .and()
+
+...
+</code></pre>
+
+
+				</section>
+
+				<section>
+					<h2>Add a Api Controller</h2>
+
+					<ul>
+						<li>Create the ApiController.groovy file.</li>
+					</ul>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\api\ApiController.groovy</u><code>package org.mrpaulwoods.employee.api
+
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+@RequestMapping(value="/api/1")
+class ApiController {
+
+    @RequestMapping(value="/home")
+    Message home() {
+        new Message()
+    }
+}
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Add a Api Controller</h2>
+
+					<ul>
+						<li>Create the Message.groovy file.</li>
+					</ul>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\api\Message.groovy</u><code>package org.mrpaulwoods.employee.api
+
+class Message {
+    String message = "hello, world"
+}
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Test the API</h2>
+
+					<ul>
+						<li>Access localhost:8080/employeedb/api/1/home.</li>
+						<li>It returns {message: "hello, world"}</li>
+					</ul>
+
+				</section>
+
+				<section>
+					<h2>Install JJWT</h2>
+
+					<ul>
+						<li>Add a the jjwt dependency to your build file.</li>
+						<li>compile('io.jsonwebtoken:jjwt:0.6.0')</li>
+					</ul>
+
+				</section>
+
+
+				<section>
+					<h2>Wire the TokenAuthenticationService bean</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\SecurityConfig.groovy</u><code>
+...
+@Autowired
+private TokenAuthenticationService tokenAuthenticationService
+...
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Update SecurityConfig.groovy</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\SecurityConfig.groovy</u><code>
+...
+
+// configure api security
+
+.addFilterBefore(
+new StatelessLoginFilter(
+    "/api/login",
+    tokenAuthenticationService,
+    employeeUserDetailsService,
+    authenticationManager()),
+UsernamePasswordAuthenticationFilter)
+
+.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), 
+	UsernamePasswordAuthenticationFilter)
+...
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Add the token's secret phrase</h2>
+
+<pre><u>src\main\resources\application.properties</u><code>
+token.secret=the-secret-phrase-goes-here
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Create StatelessAuthenticationFilter</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\security\jwt\StatelessAuthenticationFilter.groovy</u><code>
+package org.mrpaulwoods.employee.security.jwt
+
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.web.filter.GenericFilterBean
+import javax.servlet.FilterChain
+import javax.servlet.ServletException
+import javax.servlet.ServletRequest
+import javax.servlet.ServletResponse
+
+class StatelessAuthenticationFilter extends GenericFilterBean {
+
+    private final TokenAuthenticationService tokenAuthenticationService
+
+    public StatelessAuthenticationFilter(TokenAuthenticationService taService) {
+        this.tokenAuthenticationService = taService
+    }
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        SecurityContextHolder.context.authentication = tokenAuthenticationService.getAuthentication(req)
+        chain.doFilter req, res
+    }
+
+}
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Create StatelessLoginFilter</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\security\jwt\StatelessLoginFilter.groovy</u><code>
+package org.mrpaulwoods.employee.security.jwt
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.util.logging.Slf4j
+import org.mrpaulwoods.employee.security.User
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+
+import javax.servlet.FilterChain
+import javax.servlet.ServletException
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
+@Slf4j
+class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter {
+
+    private final TokenAuthenticationService tokenAuthenticationService
+    private final UserDetailsService userDetailsService
+
+    protected StatelessLoginFilter(String urlMapping,
+                                   TokenAuthenticationService tokenAuthenticationService,
+                                   UserDetailsService userDetailsService,
+                                   AuthenticationManager authManager) {
+        super(new AntPathRequestMatcher(urlMapping))
+        this.userDetailsService = userDetailsService
+        this.tokenAuthenticationService = tokenAuthenticationService
+        setAuthenticationManager(authManager)
+    }
+
+    /** Parses the {username: "xxx", password:"yyy"} json string, and attempts to login **/
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException, IOException, ServletException {
+
+        final User user = new ObjectMapper().readValue(request.getInputStream(), User.class)
+
+        final UsernamePasswordAuthenticationToken loginToken = new UsernamePasswordAuthenticationToken(
+                user.username, user.password)
+
+        return getAuthenticationManager().authenticate(loginToken)
+    }
+
+    /** the login was successful. create the token **/
+
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authentication) throws IOException, ServletException {
+
+        // Lookup the complete User object from the database and create an Authentication for it
+        final User authenticatedUser = userDetailsService.loadUserByUsername(authentication.getName())
+        final UserAuthentication userAuthentication = new UserAuthentication(authenticatedUser)
+
+        // Add the custom token as HTTP header to the response
+        tokenAuthenticationService.addAuthentication(response, userAuthentication)
+
+        // Add the authentication to the Security context
+        SecurityContextHolder.getContext().setAuthentication(userAuthentication)
+    }
+}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Create TokenAuthenticationService</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\security\jwt\TokenAuthenticationService.groovy</u><code>
+package org.mrpaulwoods.employee.security.jwt
+
+import groovy.util.logging.Slf4j
+import org.mrpaulwoods.employee.security.EmployeeUserDetailsService
+import org.mrpaulwoods.employee.security.User
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.Authentication
+import org.springframework.stereotype.Service
+
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
+@Service
+@Slf4j
+public class TokenAuthenticationService {
+
+    private static final String AUTH_HEADER_NAME = "X-AUTH-TOKEN"
+
+    @Autowired
+    UserTokenService userTokenService
+
+    /** adds the current user's token to the header */
+
+    public void addAuthentication(HttpServletResponse response, UserAuthentication authentication) {
+        final User user = authentication.getDetails()
+        response.addHeader(AUTH_HEADER_NAME, userTokenService.userToToken(user))
+    }
+
+    /** retrieves the current user from the token and stores in authentication object */
+
+    public Authentication getAuthentication(HttpServletRequest request) {
+        final String token = request.getHeader(AUTH_HEADER_NAME)
+
+        if (!token) {
+            return null
+        }
+
+        final User user = userTokenService.tokenToUser(token)
+        if (!user) {
+            return null
+        }
+
+        return new UserAuthentication(user)
+    }
+
+}
+</code></pre>
+				</section>
+
+
+				<section>
+					<h2>Create UserAuthentication</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\security\jwt\UserAuthentication.groovy</u><code>
+package org.mrpaulwoods.employee.security.jwt
+
+import org.mrpaulwoods.employee.security.User
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.GrantedAuthority
+
+public class UserAuthentication implements Authentication {
+
+    private final User user
+    private boolean authenticated = true
+
+    public UserAuthentication(User user) {
+        this.user = user
+    }
+
+    @Override
+    public String getName() {
+        return user.getUsername()
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return user.getAuthorities()
+    }
+
+    @Override
+    public Object getCredentials() {
+        return user.getPassword()
+    }
+
+    @Override
+    public User getDetails() {
+        return user
+    }
+
+    @Override
+    public Object getPrincipal() {
+        return user.getUsername()
+    }
+
+    @Override
+    public boolean isAuthenticated() {
+        return authenticated
+    }
+
+    @Override
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated
+    }
+
+}
+
+
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Create UserTokenService</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\security\jwt\UserTokenService.groovy</u><code>
+package org.mrpaulwoods.employee.security.jwt
+
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
+import org.mrpaulwoods.employee.security.EmployeeUserDetailsService
+import org.mrpaulwoods.employee.security.User
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Service
+
+/**
+ * This class converts between Users and JWT Tokens.
+ */
+@Service
+public class UserTokenService {
+
+    @Autowired
+    EmployeeUserDetailsService employeeUserDetailsService
+
+    @Value(value = '${token.secret}')
+    String secret
+
+    User tokenToUser(String token) {
+        assert secret
+
+        String username = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject()
+
+        employeeUserDetailsService.loadUserByUsername username
+    }
+
+    String userToToken(User user) {
+        assert secret
+
+        Jwts.builder()
+                .setSubject(user.username)
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact()
+    }
+
+}
+</code></pre>
+
+				</section>
+
+
+				<section>
+					<h2>Login to get the API Token</h2>
+
+					<ul>
+						<li><div>POST: http://localhost:8080/employeedb/api/login</div>
+							<div>body: {"username":"paulwoods","password":"beta"}</div>
+						</li>
+						<li><div>Returns a 200 on a good login. Pull the token from the header</div>
+							<div>X-AUTH-TOKEN : eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXVsd29vZHMifQ.ep6P2L0WUVd1KShY_N1f2Rw-suG7A71IhuvpQ0weeYbic9ZVGzgISrJ3oGlyJdsKvQYJs_lgIL-zYTiw0nfbkQ</div>
+						</li>
+					<div>
+
+				</section>
+
+				<section>
+					<h2>Access the API, using the token</h2>
+
+					<ul>
+						<li><div>GET: http://localhost:8080/employeedb/api/1/home</div>
+							<div>add header: X-AUTH-TOKEN : eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwYXVsd29vZHMifQ.ep6P2L0WUVd1KShY_N1f2Rw-suG7A71IhuvpQ0weeYbic9ZVGzgISrJ3oGlyJdsKvQYJs_lgIL-zYTiw0nfbkQ</div>
+						</li>
+						<li><div>Returns a 200</div>
+							<div>body: {"message":"hello, world"}</div>
+						</li>
+					<div>
+					
+				</section>
+
 			</section>
 
+
+
+
+
+
+
 			<section>
-				<h2>aaa</h2>
+				<h2>Oauth2 Login</h2>
+				<p>See the Spring Guide: <div><a href="https://spring.io/guides/tutorials/spring-boot-oauth2/">https://spring.io/guides/tutorials/spring-boot-oauth2/</a></div></p>
 			</section>
 
             </div>
