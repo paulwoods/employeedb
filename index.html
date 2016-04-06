@@ -3,7 +3,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/reveal.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/league.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.2.0/css/theme/white.css">
     </head>
     <body>
         <div class="reveal">
@@ -13,15 +13,15 @@
 			<section>
 				<h2>Securing Your App with Spring Security</h2>
 				<p>Paul Woods</p>
+				<p>April 6th, 2016</p>
 				<p>mr.paul.woods@gmail.com</p>
 				<p><a href="https://github.com/paulwoods/employeedb">https://github.com/paulwoods/employeedb</a></p>
 			</section>
 
 			<section>
-				<h2>Purpose</h2>
+				<h2>What Were About to Do</h2>
 				<p>This talk shows how to take an application (Spring Boot + Gradle + Thymeleaf + Spring Data JPA)
-				and add spring security to it. Other forms of Spring applications and persistance
-				can be used, with just small changes.</p>
+				and add spring security to it.</p>
 			</section>
 
 			<section>
@@ -38,12 +38,27 @@
 				<section>
 					<h2>Add Security Starter</h2>
 
-					<ol>
-						<li>Check out the tag initial-app.</li>
-						<li>Edit the build.gradle file, and add the spring security starter dependency.</li>
-					</ol>
+					<p>Our first step is to add the Spring Security dependencies to our project.</p>
 
-					<pre><code data-trim data-noescape>
+				</section>
+
+				<section>
+					<h2>Following Along?</h2>
+
+					<ul>
+						<li>Check out the tag initial-app.</li>
+					</ul>
+
+				</section>
+
+				<section>
+					<h2>Add Security Starter</h2>
+
+					<ol>
+						<li>Add the spring security starter dependency.
+					
+					<pre><u>build.gradle</u>
+						<code data-trim data-noescape>
 ...
 dependencies {
     ...
@@ -53,9 +68,8 @@ dependencies {
 ...
 					</code></pre>
 
-					<ol start="3">
-						<li>Check out the tag initial-app.</li>
-						<li>Edit the build.gradle file, and add the spring security starter dependency.</li>
+						<li>Refresh your IDE's gradle dependencies.</li>
+						<li>Run the application.</li>
 					</ol>
 
 				</section>
@@ -63,25 +77,478 @@ dependencies {
 				<section>
 					<h2>Add Security Starter</h2>
 
-					<p>3. Refresh your IDE's gradle dependencies.</p>
-					<p>4. Run the application.</p>
+					<div>Adding this starter adds spring security to the classpath of the application, and configures it with default settings. When the application is accessed, the user will be aksed for the user and password. The default user is 'user'. The password is a hash, and it can be found in the logs file. This password is different each time the application is started.</div>
+
+					<pre><u>console output</u><code>
+
+2016-03-14 19:34:09.256  INFO 11952 --- [ost-startStop-1] b.a.s.AuthenticationManagerConfiguration :
+
+Using default security password: 16a01371-b881-4a40-b9f7-288e3e4ee7b2
+
+2016-03-14 19:34:09.469  INFO 11952 --- [ost-startStop-1] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: OrRequestMatcher [requestMatchers=[Ant [pattern='/css/**'], Ant [pattern='/js/**'], Ant [pattern='/images/**'], Ant [pattern='/**/favicon.ico'], Ant [pattern='/error']]], []
+
+					</code></pre>
+
 				</section>
+
+				<section>
+					<h2>Add Security Starter</h2>
+
+					<ul>
+						<li>Our app is now secured</li>
+						<li>The users must know the user name and password to access any page of the application</li>
+						<li>The password changes every time the application is ran.</li>
+					</ul>
+
+				</section>
+
 			</section>
 
 			<section>
-				<h2>Set the Default Username and Password</h2>
+				<section>
+					<h2>Set the Default Username and Password</h2>
+					<p>Having a single user name for all users is a bad practice. And looking through the logs for the password
+					is time consuming and annoying. We can solve this by change the user name, and setting the password to a known value.</p>
+				</section>
+
+				<section>
+					<h2>Following Along?</h2>
+					<ul>
+						<li>Checkout the tag spring-starter.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Set the Default Username and Password</h2>
+
+					<ol>
+						<li>Edit the application.properties file</li>
+						<li>Set security.user.name to the username</li>
+						<li>Set security.user.password to the password.</p>
+					</ol>
+
+					<pre><u>src\main\resources\application.properties</u><code>
+...
+security.user.name=paul
+security.user.password=123456
+...
+					</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Set the Default Username and Password</h2>
+					<p>Now, when you run the application, and it asks for the user and password, enter paul and 123456 to login.</p>
+					<p>Of course, there is only one account. You probably need to store multiple users.</p>
+				</section>
+
+
 			</section>
 
 			<section>
-				<h2>Accessing the Principal</h2>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+					<p>We are goinging to defines the domains / tables to store our users,
+					and map the roles they are granted.</p>
+				</section>
+
+				<section>
+					<h2>Following Along?</h2>
+					<ul>
+						<li>Checkout the tag single-user.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+					<ol>
+						<li>Edit the application.properties file</li>
+						<li>Delete the security.user.name line (if it exists)</li>
+						<li>Delete the security.user.password line (if it exists).</p>
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+					<ol>
+						<li>Create &lt;base package&gt;.security pacakge</li>
+						<li>Create Role enum</li>
+						<li>Create User class, impelmenting UserDetail</li>
+						<li>Create Authority class, implementing GrantedAuthority</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\Role.groovy</u><code>
+package org.mrpaulwoods.employee.security
+
+enum Role {
+    ROLE_USER,
+    ROLE_ADMIN
+}
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\User.groovy</u><code>package org.mrpaulwoods.employee.security
+
+import org.springframework.security.core.userdetails.UserDetails
+import javax.persistence.*
+
+@Entity
+class User implements UserDetails {
+    @Id @GeneratedValue Long id
+    @Column(unique=true) String username
+    String password
+    boolean enabled = true
+    boolean accountNonExpired = true
+    boolean accountNonLocked = true
+    boolean credentialsNonExpired = true
+
+    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    List<Authority> authorities = []
+}</code></pre>				
+				</section>
+
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\Authority.groovy</u><code>package org.mrpaulwoods.employee.security
+import org.springframework.security.core.GrantedAuthority
+import javax.persistence.*
+
+@Entity 
+class Authority implements GrantedAuthority {
+
+    @Id @GeneratedValue 
+    Long id
+
+    @ManyToOne @JoinColumn(name="user_Id", nullable=false) 
+    User user
+
+    String authority
+
+}
+</code></pre>				
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\EmployeeUserDetailsService.groovy</u><code>package org.mrpaulwoods.employee.security
+
+import groovy.util.logging.Slf4j
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.stereotype.Service
+
+import javax.annotation.PostConstruct
+
+@Service
+class EmployeeUserDetailsService implements UserDetailsService {
+
+    @Autowired UserRepository userRepository
+
+    @Autowired AuthorityRepository authorityRepository
+
+    @Override UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username)
+        if(user)
+        	user
+        else
+        	throw new UsernameNotFoundException(username)
+    }
+
+    @PostConstruct void init() {
+        User user = userRepository.save(new User(username:"paulwoods", password:"alpha"))
+        user.authorities << authorityRepository.save(new Authority(user:user, authority: "ROLE_USER"))
+        user.authorities << authorityRepository.save(new Authority(user:user, authority: "ROLE_ADMIN"))
+    }
+
+}
+</code></pre>				
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\SecurityConfig.groovy</u><code>package org.mrpaulwoods.employee.security
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+
+@Configuration
+@EnableWebSecurity
+class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    EmployeeUserDetailsService employeeUserDetailsService
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.userDetailsService(employeeUserDetailsService)
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) {
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/login/**").permitAll()
+
+                .anyRequest().authenticated()
+                .and()
+
+            // configure the login form
+
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+
+            // configure the logout form
+
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("http://www.google.com") // TODO: change url to "/" for production
+                .permitAll()
+                .and()
+
+    }
+
+}
+
+</code></pre>				
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\AuthorityRepository.groovy</u><code>package org.mrpaulwoods.employee.security
+
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface AuthorityRepository extends JpaRepository&lt;Authority, Long&gt; {
+
+}
+</code></pre>				
+				</section>
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\UserRepository.groovy</u><code>package org.mrpaulwoods.employee.security
+
+import org.springframework.data.jpa.repository.JpaRepository
+
+interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+    User findByUsername(String username)
+}
+</code></pre>				
+				</section>
+
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\EmployeeApplication.groovy</u><code>package org.mrpaulwoods.employee
+
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+
+@SpringBootApplication
+class EmployeeApplication extends WebMvcConfigurerAdapter {
+
+	static void main(String[] args) {
+		SpringApplication.run EmployeeApplication, args
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/login").setViewName("login")
+		registry.addViewController("/logout").setViewName("logout")
+	}
+
+}
+</code></pre>				
+				</section>
+
+
+
+				<section>
+					<h2>Users, Authorities, and Roles</h2>
+
+<pre><u>src\main\resources\templates\login.groovy</u><code>&lt;!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd"&gt;
+
+&lt;html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      layout:decorator="employee"&gt;
+
+&lt;body&gt;
+
+&lt;div layout:fragment="body"&gt;
+
+    &lt;div th:if="${param.error}"&gt;
+        Invalid username and password.
+    &lt;/div&gt;
+    &lt;div th:if="${param.logout}"&gt;
+        You have been logged out.
+    &lt;/div&gt;
+    &lt;form th:action="@{/login}" method="post"&gt;
+        &lt;div class="form-group"&gt;
+            &lt;label&gt;User Name:&lt;/label&gt;
+            &lt;input class="form-control" type="text" name="username"/&gt;
+        &lt;/div&gt;
+        &lt;div class="form-group"&gt;
+            &lt;label&gt;Password:&lt;/label&gt;
+            &lt;input class="form-control" type="password" name="password"/&gt;
+        &lt;/div&gt;
+        &lt;div&gt;&lt;input type="submit" value="Sign In"/&gt;&lt;/div&gt;
+    &lt;/form&gt;
+
+&lt;/div&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>		
+
+				</section>
+
+			</section>
+
+
+			<section>
+	
+				<section>
+					<h2>Encrypting Passwords</h2>
+					<p>If you were to look at the user database table, then you would see that
+					the passwords are stored in plain text, and need to be stored encrypted instead.
+					We will add the BCrypt encryption library (already included by spring), as well as update the authentication
+					manager to use the new encrypted passwords.</p>
+				</section>
+	
+				<section>
+					<h2>Following Along?</h2>
+					<ul>
+						<li>Checkout the tag user-domain.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Encrypting Passwords</h2>
+					<ol>
+						<li>In EmployeeUserDetailsService, add
+<code><pre>
+@Autowired
+BCryptPasswordEncoder bCryptPasswordEncoder
+</code></pre>
+						<li>and, change the init method to
+<code><pre>
+@PostConstruct
+void init() {
+    User user = userRepository.save(new User(username: "paulwoods", password: 
+    	bCryptPasswordEncoder.encode("alpha")))
+    user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_USER"))
+    user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_ADMIN"))
+}
+</code></pre>
+
+					</ol>
+				</section>
+	
+				<section>
+					<h2>Encrypting Passwords</h2>
+					<ol>
+						<li>Update SecurityConfig to use BCrypt as the password encoder.
+<code><pre>
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth
+                .userDetailsService(employeeUserDetailsService)
+                .passwordEncoder(new BCryptPasswordEncoder())
+    }
+</code></pre>
+
+					</ol>
+				</section>
+
 			</section>
 
 			<section>
-				<h2>Users, Roles and Authorities</h2>
-			</section>
+				<section>
+					<h2>Accessing the Principal</h2>
+					The currently logged-in user is called the principal. You can access the principal and get thier name.
+				</section>
 
-			<section>
-				<h2>Storing Passwords</h2>
+				<section>
+					<h2>Following Along?</h2>
+					<ul>
+						<li>Checkout the tag encrypted-password.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Accessing the Principal</h2>
+					<h3>From a Controller</h3>
+					<ol>
+						<li>Add a java.security.Principal parameter to the controller method.</li>
+						<li>Access the getName() method to get the user name.</li>
+
+<pre><u>src\main\groovy\org\mrpaulwoods\employee\home\HomeController.groovy</u><code>					
+    @RequestMapping(method=GET)
+    String index(Principal principal) {
+        println "principal = $principal.name"
+        "home/index"
+    }
+</code></pre>
+					</ol>
+				</section>
+				
+				<section>
+					<h2>Accessing the Principal</h2>
+					<h3>From a Service</h3>
+					<p>This example accesses the principal from a Service.</p>
+					<pre><u>src\main\groovy\org\mrpaulwoods\employee\home\HomeService.groovy</u><code>
+...
+import org.springframework.security.core.context.SecurityContextHolder
+
+@Slf4j @Service @Transactional class HomeService {
+    void example() {
+        def principal = SecurityContextHolder.context?.authentication
+        log.info "user = $principal.name"
+    }
+}
+					</code></pre>
+
+				</section>
+					
+				<section>
+					<h2>Accessing the Principal</h2>
+					<h3>From a Thymeleaf Template</h3>
+					<p>This example accesses the principal from a Thymeleaf template.</p>
+					<pre><u>src\main\resources\templates\employee.html</u><code>
+&lt;ul class="nav navbar-nav navbar-right"&gt;
+    &lt;li&gt;
+        &lt;a href="#" th:text="'Welcome, ' + ${#authentication.name}"&gt;Name&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+					</code></pre>
+
+				</section>
+
 			</section>
 
 			<section>
@@ -89,7 +556,24 @@ dependencies {
 			</section>
 
 			<section>
-				<h2>External Authentication</h2>
+				<h2>Manually Loggin-in</h2>
+				<p>In some situations, you have a User object (that extends UserDetail), and you want
+				that use to become the currently logged in user. Add these lines to set the logged-in user.</p>
+
+				<pre><code>
+import org.springframework.security.core.Authentication
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
+
+...
+
+UserDetail user = ...
+
+Authentication authentication = new UsernamePasswordAuthenticationToken(
+	user, user.password, user.authorities)
+SecurityContextHolder.context.authentication = authentication
+				</code></pre>
+
 			</section>
 
 			<section>
