@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 import javax.annotation.PostConstruct
@@ -28,7 +29,9 @@ class EmployeeUserDetailsService implements UserDetailsService {
 
     @PostConstruct
     void init() {
-        User user = userRepository.save(new User(username: "paulwoods", password: "alpha"))
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder()
+
+        User user = userRepository.save(new User(username: "paulwoods", password: encoder.encode("beta")))
         user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_USER"))
         user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_ADMIN"))
     }

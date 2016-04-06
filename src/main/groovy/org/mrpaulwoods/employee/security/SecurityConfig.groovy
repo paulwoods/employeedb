@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 @Configuration
 @EnableWebSecurity
@@ -16,7 +17,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        auth.userDetailsService(employeeUserDetailsService)
+        auth
+                .userDetailsService(employeeUserDetailsService)
+                .passwordEncoder(new BCryptPasswordEncoder())
     }
 
     @Override
@@ -44,7 +47,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("http://www.google.com") // TODO: change url to "/" for production
+                .logoutSuccessUrl("http://www.google.com")
                 .permitAll()
                 .and()
 
