@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
-import java.security.Principal
-
 import static org.springframework.web.bind.annotation.RequestMethod.GET
 
 /**
@@ -25,11 +23,10 @@ class HomeController {
     }
 
     @RequestMapping(method=GET)
-    String index(Principal principal) {
-        log.info "current user = ${principal?.name}"
+    String index() {
         homeService.example()
         "home/index"
     }
-}
 
+}
 

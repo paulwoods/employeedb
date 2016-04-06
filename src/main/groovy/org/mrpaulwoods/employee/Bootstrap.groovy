@@ -33,6 +33,8 @@ class Bootstrap {
 
     @PostConstruct
     def init() {
+
+
         new JsonSlurper().parseText(data).each { record ->
             Person person = new Person()
             person.firstName = record.firstname

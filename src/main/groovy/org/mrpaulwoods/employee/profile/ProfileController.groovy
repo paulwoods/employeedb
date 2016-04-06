@@ -1,8 +1,6 @@
 package org.mrpaulwoods.employee.profile
 
 import groovy.util.logging.Slf4j
-import org.mrpaulwoods.employee.profile.Profile
-import org.mrpaulwoods.employee.profile.ProfileForm
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import javax.validation.Valid
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET
-import static org.springframework.web.bind.annotation.RequestMethod.POST
-import static org.springframework.web.bind.annotation.RequestMethod.POST
 import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 /**

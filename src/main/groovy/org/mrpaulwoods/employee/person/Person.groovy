@@ -3,12 +3,7 @@ package org.mrpaulwoods.employee.person
 import org.mrpaulwoods.employee.payroll.Payroll
 import org.mrpaulwoods.employee.profile.Profile
 
-import javax.persistence.CascadeType
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.OneToOne
+import javax.persistence.*
 
 /**
  * Created on 3/7/2016.
