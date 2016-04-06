@@ -31,9 +31,12 @@ class EmployeeUserDetailsService implements UserDetailsService {
     void init() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder()
 
-        User user = userRepository.save(new User(username: "paulwoods", password: encoder.encode("beta")))
-        user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_USER"))
-        user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_ADMIN"))
+        User user = userRepository.findByUsername("paulwoods")
+        if (!user) {
+            user = userRepository.save(new User(username: "paulwoods", password: encoder.encode("beta")))
+            user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_USER"))
+            user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_ADMIN"))
+        }
     }
 
 }
