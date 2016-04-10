@@ -1,0 +1,315 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "pastry",
+		"selected_items":
+		[
+			[
+				"pastry",
+				"Text Pastry: From 1 To X"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 400.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/projects/employee-presentation"
+	],
+	"file_history":
+	[
+		"/C/projects/employee/.gitignore",
+		"/C/projects/employee-presentation/index.html",
+		"/C/projects/employee/build.gradle",
+		"/C/projects/employee/LICENSE",
+		"/C/projects/employee/src/main/resources/application.properties",
+		"/C/Users/mrpau/Desktop/5-password/src/main/groovy/org/mrpaulwoods/employee/security/EmployeeUserDetailsService.groovy",
+		"/C/projects/adhoc-rest/build.gradle",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/home/HomeController.groovy",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/security/StatelessLoginFilter.groovy",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/security/AdhocRestUserDetailsService.groovy",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/security/Authority.groovy",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/security/SecurityConfig.groovy",
+		"/C/projects/adhoc-rest/src/main/resources/application.properties",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/AdhocRestApplication.groovy",
+		"/C/projects/employee/src/main/groovy/org/mrpaulwoods/employee/security/jwt/TokenHandler.groovy",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/security/UserAuthentication.groovy",
+		"/C/projects/employee-presentation/.git/config",
+		"/C/projects/employee-presentation/.gitignore",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/security/SecurityConfig.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/security/EcommerceUserDetailsService.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/security/EcommerceAuthenticationProvider.groovy",
+		"/C/Projects.blu/ecommerce/build.gradle",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/EcommerceApplication.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/EcommerceControllerAdvice.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/ServletInitializer.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/ErrorInfo.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/EcommerceException.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/Bootstrap.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/SimpleCORSFilter.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/utils/DomainBuilder.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/home/HomeController.groovy",
+		"/C/projects/employee/src/main/groovy/org/mrpaulwoods/employee/security/SecurityConfig.groovy",
+		"/C/projects/cocstats/src/main/resources/application.properties",
+		"/C/Users/mrpau/Documents/mrpaulwoods.com/mrpaulwoods.com.txt",
+		"/C/Users/mrpau/Documents/digital ocean/digitalocean.txt",
+		"/C/Users/mrpau/Documents/mrpaulwoods.com/myserver.key",
+		"/C/windows-version.txt",
+		"/H/14c8eb44-86cf-4efb-b7a5-a4a973b515e4.gcode",
+		"/C/Users/mrpau/Documents/Dell/dell.txt",
+		"/C/Users/mrpau/Desktop/presentation/index.html",
+		"/C/Users/mrpau/Desktop/presentation/css/theme/README.md",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/schema/SchemaController.groovy",
+		"/C/projects.react/react-0.14.7/examples/basic/index.html",
+		"/C/projects.react/react-0.14.7/README.md",
+		"/C/projects.react/react-0.14.7/index.html",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/organization/Organization.groovy",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/productoffering/ProductOffering.groovy",
+		"/C/Users/mrpau/Documents/sublime text/sublime license.txt",
+		"/C/projects/cocstats/src/main/resources/templates/cocstats.html",
+		"/C/projects/cocstats/src/main/resources/templates/home/index.html",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/security/User.groovy",
+		"/C/projects/adhoc-rest/src/main/groovy/org/mrpaulwoods/adhoc/rest/security/Role.groovy",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.2mm - 80mmps - spiral.ini",
+		"/C/Users/mrpau/Documents/3d models/0.3mm - 10pct - 80mmps.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.2mm - 10pct - 80mmps - brim.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.2mm - 10pct - 40mmps.ini",
+		"/C/Users/mrpau/Desktop/cura changes.txt",
+		"/C/Users/mrpau/Documents/3d models/TAZ_Raspberry_Pi_Camera_Case__Mount.zip",
+		"/C/Users/mrpau/Desktop/40head.gcode",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.3mm - 10pct - 60mmps - raft.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.2mm - 100pct - 20mmps.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.2mm - 100pct - 50mmps.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.3mm - 10pct - 60mmps - brim.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.2mm - 100pct.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/0.2mm - 10pct.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/hips-0.3mm-10pct - 60mmps - raft.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/hips-0.3mm-10pct - 60mmps - brim.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/hips-0.2mm-100pct.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/hips-0.2mm-10pct.ini",
+		"/C/Users/mrpau/Documents/3d models/- profiles/nvent.ini",
+		"/C/Users/mrpau/Documents/amazon/amazon card.txt",
+		"/C/Users/mrpau/AppData/Local/Temp/7zO805FB919/readme.txt",
+		"/C/Users/mrpau/Documents/tom thumb/tom thumb.txt",
+		"/C/Projects.blu/ecommerce/src/main/groovy/com/blusynergy/ecommerce/contractoffering/ContractOffering.groovy",
+		"/C/Users/mrpau/Documents/allstate/allstate.txt",
+		"/C/Users/mrpau/Documents/3d models/taz 5/Attribution.txt",
+		"/C/Program Files (x86)/PuTTY/README.txt",
+		"/C/Users/mrpau/Documents/digial hd/ultraviolet.txt",
+		"/C/Users/mrpau/Documents/paramount movies/paramount movies.txt",
+		"/C/Users/mrpau/Documents/sony pictures/sony pictures.txt",
+		"/H/octopi-network.txt",
+		"/C/Program Files (x86)/ImageWriter/README.txt",
+		"/C/Recovery.txt",
+		"/C/Users/mrpau/Desktop/handbrake.txt"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"0",
+			">\n",
+			"				<section>\n					<h2>Update application.groovy</h2>\n\n					<ul>\n						<li>Create the StatelessAuthenticationFilter file.</li>\n\n<pre><u>src\\main\\groovy\\org\\mrpaulwoods\\employee\\security\\jwt\\StatelessAuthenticationFilter.groovy</u><code>\npackage org.mrpaulwoods.employee.security.jwt\n\nimport org.springframework.security.core.context.SecurityContextHolder\nimport org.springframework.web.filter.GenericFilterBean\nimport javax.servlet.FilterChain\nimport javax.servlet.ServletException\nimport javax.servlet.ServletRequest\nimport javax.servlet.ServletResponse\n\nclass StatelessAuthenticationFilter extends GenericFilterBean {\n\n    private final TokenAuthenticationService tokenAuthenticationService\n\n    public StatelessAuthenticationFilter(TokenAuthenticationService taService) {\n        this.tokenAuthenticationService = taService\n    }\n\n    @Override\n    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {\n        SecurityContextHolder.context.authentication = tokenAuthenticationService.getAuthentication(req)\n        chain.doFilter req, res\n    }\n\n}\n</code></pre>\n					</ul>\n\n				</section>",
+			"				<section>\n					<h2>Update SecurityConfig.groovy</h2>\n\n					<ul>\n						<li>Wire the TokenAuthenticationService bean.</li>\n						<li>compile('io.jsonwebtoken:jjwt:0.6.0')</li>\n\n						<pre><code>@Autowired\nprivate TokenAuthenticationService tokenAuthenticationService\n</code></pre>\n					</ul>\n\n				</section>\n\n",
+			"\n				<section>\n					<h2>Install JJWT</h2>\n\n					<ul>\n						<li>Add a the jjwt dependency to your build file.</li>\n						<li>compile('io.jsonwebtoken:jjwt:0.6.0')</li>\n					</ul>\n\n				</section>\n\n",
+			"userRepository",
+			"				<section>\n					<h2>Following Along?</h2>\n\n					<ul>\n						<li>Check out the tag authorization.</li>\n					</ul>\n\n				</section>\n",
+			"				<section>\n					<h2>Following Along?</h2>\n\n					<ul>\n						<li>Check out the tag encrypted-password.</li>\n					</ul>\n\n				</section>\n",
+			"				<section>\n					<h2>Following Along?</h2>\n\n					<ul>\n						<li>Check out the tag encrypted-password.</li>\n					</ul>\n\n				</section>\n\n",
+			"follow",
+			"				<section>\n					<h2>Authorization</h2>\n					<p>We've specified the URL based authorization in the SecurityConfig</p>\n<pre><u>src\\main\\groovy\\org\\mrpaulwoods\\employeedb\\security\\SecurityConfig.groovy</u><code>\n.antMatchers(\"/webjars/**\").permitAll()\n.antMatchers(\"/css/**\").permitAll()\n.antMatchers(\"/js/**\").permitAll()\n.antMatchers(\"/images/**\").permitAll()\n.antMatchers(\"/login/**\").permitAll()\n\n.anyRequest().authenticated()\n				</code></pre>\n\n				<ul>\n					<li>The 5 urls are authorized for anyone to use.</li>\n					<li>Any other requests require an authenticated user.</li>\n				</ul>\n\n				</section>\n",
+			"			<section>\n				<h2>Logging</h2>\n			</section>\n",
+			">",
+			"<",
+			"<code><pre>	",
+			"page",
+			"				<section>\n					<h2>Storing Passwords</h2>\n					<p>If you were to look at the user database table, then you would see that\n					the passwords are stored in plain text, and need to be stored encrypted instead.\n					We will add the BCrypt encryption library, as well as update the authentication\n					manager to use the new encrypted passwords.\n				</section>\n",
+			">",
+			"<",
+			"\n				<section>\n<pre><u>src\\main\\groovy\\org\\mrpaulwoods\\employeedb\\security\\EmployeeUserDetailsService.groovy</u><code>package org.mrpaulwoods.employee.security\n\nimport groovy.util.logging.Slf4j\nimport org.springframework.beans.factory.annotation.Autowired\nimport org.springframework.security.core.userdetails.UserDetails\nimport org.springframework.security.core.userdetails.UserDetailsService\nimport org.springframework.security.core.userdetails.UsernameNotFoundException\nimport org.springframework.stereotype.Service\n\nimport javax.annotation.PostConstruct\n\n@Service\nclass EmployeeUserDetailsService implements UserDetailsService {\n\n    @Autowired UserRepository userRepository\n\n    @Autowired AuthorityRepository authorityRepository\n\n    @Override UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {\n        User user = userRepository.findByUsername(username)\n        (user) ? user : throw new UsernameNotFoundException(username)\n    }\n\n    @PostConstruct void init() {\n        User user = userRepository.save(new User(username:\"paulwoods\", password:\"alpha\"))\n        user.authorities << authorityRepository.save(new Authority(user:user, authority: \"ROLE_USER\"))\n        user.authorities << authorityRepository.save(new Authority(user:user, authority: \"ROLE_ADMIN\"))\n    }\n\n}\n</code></pre>				\n				</section>",
+			"				<section>\n<pre><u>src\\main\\groovy\\org\\mrpaulwoods\\employeedb\\security\\Authority.groovy</u><code>package org.mrpaulwoods.employee.security\nimport org.springframework.security.core.GrantedAuthority\nimport javax.persistence.*\n\n@Entity \nclass Authority implements GrantedAuthority {\n\n    @Id @GeneratedValue \n    Long id\n\n    @ManyToOne @JoinColumn(name=\"user_Id\", nullable=false) \n    User user\n\n    String authority\n\n}\n</code></pre>				\n				</section>",
+			"				<section>\n<pre><u>src\\main\\groovy\\org\\mrpaulwoods\\employeedb\\security\\User.groovy</u><code>package org.mrpaulwoods.employee.security\n\nimport org.springframework.security.core.userdetails.UserDetails\nimport javax.persistence.*\n\n@Entity\nclass User implements UserDetails {\n    @Id @GeneratedValue Long id\n    @Column(unique=true) String username\n    String password\n    boolean enabled = true\n    boolean accountNonExpired = true\n    boolean accountNonLocked = true\n    boolean credentialsNonExpired = true\n\n    @OneToMany(mappedBy = \"user\", fetch=FetchType.EAGER, cascade = CascadeType.ALL)\n    List<Authority> authorities = []\n}</code></pre>				\n				</section>\n",
+			"				<section>\n					<h2>Users, Authorities, and Roles</h2>\n					<ol>\n						<li>Create security pacakge</li>\n						<li>Create user object, impelmenting UserDetail\n				</section>\n",
+			"				\n				<section>\n					<h2>Accessing the Principal</h2>\n					<h3>From a Controller</h3>\n					<p>This example logs the name of the currently logged in user when the user accesses the home page.</p>\n					<pre><u>src\\main\\groovy\\org\\mrpaulwoods\\employee\\home\\HomeController.groovy</u><code>\n...\nimport java.security.Principal\n\n@Controller @RequestMapping @Slf4j class HomeController {\n\n    @RequestMapping(method=GET)\n    String index(Principal principal) {\n        log.info \"current user = ${principal?.name}\"\n        homeService.example()\n        \"home/index\"\n    }\n\n    @Autowired\n    HomeController(HomeService homeService) {\n        this.homeService = homeService\n    }\n\n    private final HomeService homeService\n\n}\n\n\n\n					</code></pre>\n\n			</section>\n",
+			"				<section>\n					<h2>Set the Default Username and Password</h2>\n					<p>Edit the application.properties file, and set security.user.name to the username, and/or\n					security.user.password to the password.</p>\n\n					<pre><u>src\\main\\resources\\application.properties</u><code>\nsecurity.user.name=paul\nsecurity.user.password=123456\n					</code></pre>\n\n\n				</section>\n\n",
+			"p",
+			"reveal",
+			"h1",
+			"				<",
+			"\n			<section>\n				<h1>aaa</h1>\n			</section>\n",
+			"\n			<section>\n				<h1>Set the Default Username and Password</h1>\n			</section>\n",
+			"			<section>\n				<h1>Demo Unsecured Application</h1>\n			</section>\n\n",
+			"\n			<section>\n				<h1>Demo</h1>\n				<ol>\n					<li>Demo Unsecured Application</li>\n					<li>Add Security Starter</li>\n					<li>Set Default Username and Password</li>\n\n				</ol>\n			</section>\n\n",
+			"li",
+			"        <",
+			"script",
+			"			var HelloWorld = React.createClass({\n\n				propTypes: {\n					name: React.PropTypes.string.isRequired\n				},\n\n				getDefaultProps: function() {\n					return {\n						name: \"Scott\"\n					};\n				},\n\n				render: function() {\n					return (\n						<h1>Hello {this.props.name}</h1>\n					)\n				}\n			});\n\n",
+			"5",
+			"script",
+			">",
+			"\",city",
+			"\"Zip\"",
+			"\"State\"",
+			"\"City\"",
+			"\"Street\"",
+			"()",
+			"getOne",
+			"\"Street\"",
+			"\n	},",
+			"	{\n		",
+			"\"",
+			"hop",
+			"temperat",
+			"infill"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 39.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "employee.sublime-project",
+	"replace":
+	{
+		"height": 74.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 372.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
