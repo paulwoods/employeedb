@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Employee Database</title>
+    <link rel="icon" type="image/x-icon" href="#" th:href="@{/favicon.ico}"/>
+    <link rel="stylesheet" href="#" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="#" th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css}"/>
+    <link rel="stylesheet" href="#" th:href="@{/css/styles.css}"/>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">
+                <span class="glyphicon glyphicon-piggy-bank"></span>
+                Employee Database
+            </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li th:class="${#httpServletRequest.requestURI.equals('/employeedb/')} ? 'active' : ''">
+                    <a href="#" th:href="@{/}">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Home</a>
+                </li>
+                <li th:class="${#httpServletRequest.requestURI.contains('employeedb/person')} ? 'active' : ''">
+                    <a href="#" th:href="@{/person}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        People
+                    </a>
+                </li>
+                <li th:class="${#httpServletRequest.requestURI.contains('employeedb/profile')} ? 'active' : ''">
+                    <a href="#" th:href="@{/profile}">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Profiles
+                    </a>
+                </li>
+                <li th:class="${#httpServletRequest.requestURI.contains('employeedb/payroll')} ? 'active' : ''">
+                    <a href="#" th:href="@{/payroll}">
+                        <span class="glyphicon glyphicon-usd"></span>
+                        Payroll
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                </li>
+            </ul>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+    <div layout:fragment="body"></div>
+</div>
+
+<script src="#" th:src="@{/webjars/jquery/2.2.1/jquery.min.js}"></script>
+<script src="#" th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+<div layout:fragment="scripts"></div>
+
+</body>
+
+</html>
