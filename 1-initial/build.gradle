@@ -40,10 +40,8 @@ dependencies {
 	compile('org.codehaus.groovy:groovy')
 	compile('org.codehaus.groovy:groovy-json')
 	runtime('com.h2database:h2')
-	compile('org.springframework.boot:spring-boot-starter-tomcat')
-//	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-
 	compile 'org.webjars:bootstrap:3.3.6'
 	compile 'org.webjars:jquery:2.2.1'
 }
