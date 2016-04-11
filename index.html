@@ -31,6 +31,7 @@
 					has no authentication or authorization.</p>
 				<p>You can clone the source code and follow along.</p>
 				<p><a href="https://github.com/paulwoods/employeedb.git">https://github.com/paulwoods/employeedb.git</a></p>
+				<p>Run the project in the 1-initial folder</p>
 
 			</section>
 
@@ -46,7 +47,8 @@
 					<h2>Following Along?</h2>
 
 					<ul>
-						<li>Check out the tag initial-app.</li>
+						<li>Start with the project in the 1-initial folder.</li>
+						<li>When were done, we'll have the project in the 2-springstarter folder.</li>
 					</ul>
 
 				</section>
@@ -114,7 +116,8 @@ Using default security password: 16a01371-b881-4a40-b9f7-288e3e4ee7b2
 				<section>
 					<h2>Following Along?</h2>
 					<ul>
-						<li>Checkout the tag spring-starter.</li>
+						<li>Start with the project in the 2-springstarter folder.</li>
+						<li>When were done, we'll have the project in the 3-singleuser folder.</li>
 					</ul>
 				</section>
 
@@ -156,7 +159,8 @@ security.user.password=123456
 				<section>
 					<h2>Following Along?</h2>
 					<ul>
-						<li>Checkout the tag single-user.</li>
+						<li>Start with the project in the 3-singleuser folder.</li>
+						<li>When were done, we'll have the project in the 4-userdomain folder.</li>
 					</ul>
 				</section>
 
@@ -210,7 +214,7 @@ class User implements UserDetails {
     boolean credentialsNonExpired = true
 
     @OneToMany(mappedBy = "user", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    List<Authority> authorities = []
+    List&lt;Authority&gt; authorities = []
 }</code></pre>				
 				</section>
 
@@ -443,35 +447,40 @@ class EmployeeApplication extends WebMvcConfigurerAdapter {
 				<section>
 					<h2>Following Along?</h2>
 					<ul>
-						<li>Checkout the tag user-domain.</li>
+						<li>Start with the project in the 4-userdomain folder.</li>
+						<li>When were done, we'll have the project in the 5-encrypt-password folder.</li>
+
 					</ul>
 				</section>
 
 				<section>
 					<h2>Encrypting Passwords</h2>
 					<ol>
-						<li>In EmployeeUserDetailsService, add
+						<li>Modify EmployeeUserDetailsService.groovy</li>
+					</ol>
 <code><pre>
-@Autowired
-BCryptPasswordEncoder bCryptPasswordEncoder
-</code></pre>
-						<li>and, change the init method to
-<code><pre>
+...
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+...
 @PostConstruct
 void init() {
-    User user = userRepository.save(new User(username: "paulwoods", password: 
-    	bCryptPasswordEncoder.encode("alpha")))
-    user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_USER"))
-    user.authorities << authorityRepository.save(new Authority(user: user, authority: "ROLE_ADMIN"))
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder()
+
+        User user = userRepository.save(new User(username: "paulwoods", 
+        	password: encoder.encode("beta")))
+        user.authorities << authorityRepository.save(
+        	new Authority(user: user, authority: "ROLE_USER"))
+        user.authorities << authorityRepository.save(
+        	new Authority(user: user, authority: "ROLE_ADMIN"))
 }
+...
 </code></pre>
 
-					</ol>
 				</section>
 	
 				<section>
 					<h2>Encrypting Passwords</h2>
-					<ol start="3">
+					<ol start="2">
 						<li>Update SecurityConfig to use BCrypt as the password encoder.
 <code><pre>
     @Override
@@ -496,7 +505,7 @@ void init() {
 				<section>
 					<h2>Following Along?</h2>
 					<ul>
-						<li>Checkout the tag encrypted-password.</li>
+						<li>Start with the project in the 5-encrypt-password folder.</li>
 					</ul>
 				</section>
 
@@ -583,6 +592,13 @@ SecurityContextHolder.context.authentication = authentication
 				</section>
 
 				<section>
+					<h2>Following Along?</h2>
+					<ul>
+						<li>Start with the project in the 5-encrypt-password folder.</li>
+					</ul>
+				</section>
+
+				<section>
 					<h2>Authorization</h2>
 					<p>We've specified the URL based authorization in the SecurityConfig</p>
 <pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\SecurityConfig.groovy</u><code>
@@ -616,6 +632,10 @@ SecurityContextHolder.context.authentication = authentication
 					</ul>
 
 					<p>Remember, to add @EnableGlobalMethodSecurity(securedEnabled = true) to your SecurityConfig class</p>
+
+					@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, securedEnabled = true)
+
+
 				</section>
 
 				<section>
@@ -632,18 +652,18 @@ SecurityContextHolder.context.authentication = authentication
 
 					<ul>
 						<li>Edit SecurityConfig.groovy.</li>
-						<li>Add the annotation @EnableGlobalMethodSecurity(securedEnabled = true) to the class.</li>
+						<li>Add the annotation @EnableGlobalMethodSecurity to the class.</li>
+					</ul>
 
 <pre><u>src\main\groovy\org\mrpaulwoods\employee\payroll\PayrollController.groovy</u><code>...
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 ...
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 ...
 </code></pre>
-					</ul>
 				</section>
 
 				<section>
@@ -685,20 +705,17 @@ The client will send the token in the header of each subsequent call.
 
 				</section>
 
-
-
-
 				<section>
 					<h2>Following Along?</h2>
 
 					<ul>
-						<li>Check out the tag authorization.</li>
+						<li>We don't have a starting project for this one. See the 7-rest folder for the final project.</li>
 					</ul>
 
 				</section>
 
 				<section>
-					<h2>Allow anyone to access the api</h2>
+					<h2>First, Build an un-secured API</h2>
 
 					<ul>
 						<li>Edit the SecurityConfig.groovy file.</li>
@@ -727,7 +744,7 @@ protected void configure(HttpSecurity http) {
 				</section>
 
 				<section>
-					<h2>Add a Api Controller</h2>
+					<h2>Add an API Controller</h2>
 
 					<ul>
 						<li>Create the ApiController.groovy file.</li>
@@ -752,7 +769,7 @@ class ApiController {
 				</section>
 
 				<section>
-					<h2>Add a Api Controller</h2>
+					<h2>Add an API Controller</h2>
 
 					<ul>
 						<li>Create the Message.groovy file.</li>
@@ -787,37 +804,31 @@ class Message {
 
 				</section>
 
-
-				<section>
-					<h2>Wire the TokenAuthenticationService bean</h2>
-
-<pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\SecurityConfig.groovy</u><code>
-...
-@Autowired
-private TokenAuthenticationService tokenAuthenticationService
-...
-</code></pre>
-
-				</section>
-
 				<section>
 					<h2>Update SecurityConfig.groovy</h2>
 
 <pre><u>src\main\groovy\org\mrpaulwoods\employeedb\security\SecurityConfig.groovy</u><code>
 ...
+import org.mrpaulwoods.employee.security.jwt.StatelessAuthenticationFilter
+import org.mrpaulwoods.employee.security.jwt.StatelessLoginFilter
+import org.mrpaulwoods.employee.security.jwt.TokenAuthenticationService
+...
+@Autowired
+private TokenAuthenticationService tokenAuthenticationService
+...
+
+    protected void configure(HttpSecurity http) {
 
 // configure api security
 
-.addFilterBefore(
-new StatelessLoginFilter(
-    "/api/login",
-    tokenAuthenticationService,
-    employeeUserDetailsService,
-    authenticationManager()),
-UsernamePasswordAuthenticationFilter)
+	.addFilterBefore(
+	new StatelessLoginFilter("/api/login", tokenAuthenticationService,
+		employeeUserDetailsService, authenticationManager()),
+		UsernamePasswordAuthenticationFilter)
 
-.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), 
-	UsernamePasswordAuthenticationFilter)
+	.addFilterBefore(new StatelessAuthenticationFilter(tokenAuthenticationService), 
+		UsernamePasswordAuthenticationFilter)
+}
 ...
 </code></pre>
 
@@ -825,7 +836,6 @@ UsernamePasswordAuthenticationFilter)
 
 				<section>
 					<h2>Add the token's secret phrase</h2>
-
 <pre><u>src\main\resources\application.properties</u><code>
 token.secret=the-secret-phrase-goes-here
 </code></pre>
