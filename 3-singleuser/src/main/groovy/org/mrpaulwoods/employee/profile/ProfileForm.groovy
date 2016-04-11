@@ -1,6 +1,5 @@
 package org.mrpaulwoods.employee.profile
 
-import org.mrpaulwoods.employee.profile.Profile
 import org.mrpaulwoods.employee.person.Person
 
 import javax.validation.constraints.NotNull

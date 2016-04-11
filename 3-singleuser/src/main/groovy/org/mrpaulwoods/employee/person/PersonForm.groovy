@@ -1,7 +1,6 @@
 package org.mrpaulwoods.employee.person
 
 import javax.validation.constraints.NotNull
-import javax.validation.constraints.Null
 import javax.validation.constraints.Size
 
 /**

@@ -1,9 +1,8 @@
 package org.mrpaulwoods.employee.payroll
 
 import groovy.util.logging.Slf4j
-import org.mrpaulwoods.employee.payroll.Payroll
-import org.mrpaulwoods.employee.payroll.PayrollForm
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.annotation.Secured
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -21,6 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST
 @Controller
 @RequestMapping(value = "/payroll")
 @Slf4j
+@Secured('ROLE_HR')
 class PayrollController {
 
     private final PayrollRepository payrollRepository
