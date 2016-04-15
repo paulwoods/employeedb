@@ -12,7 +12,7 @@ class Authority implements GrantedAuthority {
     Long id
 
     @ManyToOne
-    @JoinColumn(name = "user_Id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     User user
 
     String authority
